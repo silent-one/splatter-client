@@ -1,4 +1,34 @@
+@font-face {
+		font-family: "EmojiSymbols";
+		src: url('../fonts/EmojiSymbols-Regular.woff') format('woff');
+		text-decoration: none;
+		font-style: normal;
+	}
+.emoji {
+	font-family: "EmojiSymbols";
+	font-size:50px;
+	color: #fff;
+}
+
+.navbar-header .emoji {
+	display:inline-block;
+	color: #ffac33;
+	font-size: 34px;
+}
+
+/*33 and 34*/
+.navbar {
+	z-index: 10;
+}
+
+.navbar-header .sitetitle {
+	vertical-align: top;
+	color: #ffac33;
+	line-height: 27px;
+}
+
 .loading {
+	z-index:100;
 	display:block;
 	position:absolute;
 	top:0;
@@ -24,12 +54,13 @@
   display: inline-block;
   position: absolute;
   top: 0;
-  background-color: #fff;
+  background-color: #ffac33;
   border-radius: 100%;
   
   -webkit-animation: bounce 2.0s infinite ease-in-out;
   animation: bounce 2.0s infinite ease-in-out;
 }
+
 
 .dot2 {
   top: auto;
