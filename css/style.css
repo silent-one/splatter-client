@@ -4,6 +4,46 @@
 		text-decoration: none;
 		font-style: normal;
 	}
+	
+.loggedin .notloggedin {
+	display:none;
+}
+
+.container {
+	width:800px;
+}
+
+body.loggedin .loggedin {
+	display:block !important;
+}
+
+.signup {
+	margin:0 auto;
+	display:block;
+	width:250px;	
+	margin-top:20px;
+}
+
+.followers form {
+	width: 300px;
+	float: left;
+}
+
+.signup button {
+	display:block;
+	margin: 0 auto;
+	margin-top:10px;	
+}
+.signup input {
+	
+	width: 100%;
+}
+
+.user-details {
+	color: white;
+	display:none;
+}
+
 .emoji {
 	font-family: "EmojiSymbols";
 	font-size:50px;
@@ -14,6 +54,33 @@
 	display:inline-block;
 	color: #ffac33;
 	font-size: 34px;
+}
+
+
+.feed .splatt {
+	box-sizing: border-box;
+	-webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	
+	padding:15px;
+	background-color: #F8F0D9;
+	margin-bottom:10px;
+	border:1px solid black;
+}
+.feed .splatt_timestamp {
+	font-size: 15px;	
+}
+.feed .splatt:nth-child(even){
+	background-color: #F3D4A2;	
+}
+
+.splatt .usr_cs {
+	font-size: 15px;
+	font-weight: bold;
+}
+
+.splatt .usr_timestamp {
+	font-size:12px;
 }
 
 /*33 and 34*/

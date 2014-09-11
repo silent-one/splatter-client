@@ -15,7 +15,7 @@
 		<script src="js/app.js"></script>
 
 	</head>
-	<body>
+	<body ng-controller="UserController as user">
 		<div ng-show="loading" class="loading">
 			<div class="spinner">
 				<div class="dot1"></div>
@@ -37,14 +37,17 @@
 			</a>
 			</div>
 			<div class="navbar-collapse collapse">
-			  <form class="navbar-form navbar-right" role="form">
+			  <form ng-submit="user.login()" class="navbar-form navbar-right notloggedin" role="form">
 				<div class="form-group">
-				  <input type="text" placeholder="Email" class="form-control">
+				  <input type="text" ng-model="user.data.id" placeholder="Email" class="form-control">
 				</div>
 				<div class="form-group">
 				  <input type="password" placeholder="Password" class="form-control">
 				</div>
 				<button type="submit" class="btn btn-success">Sign in</button>
+			  </form>
+              <form ng-submit="user.logout()" ng-model="splatt.body" class="navbar-form navbar-right loggedin user-details" role="form">
+					Logged in as {{user.loggedin_user.name}} <button type="submit" class="btn btn-warning">Logout</button>
 			  </form>
 			</div><!--/.navbar-collapse -->
 		  </div>
@@ -53,18 +56,65 @@
 		<div class="jumbotron">
 			
 			<div class="container">
-				<h1>Hello, world!</h1>
-				<div ng-controller="UserController as user">
-					<p>Hello {{user.u.name}}, your email address is {{user.u.email}}</p>
+				<h1></h1>
+					<form ng-submit="user.newsplatt()" style="display:none" class="loggedin" role="form">
+                    <p>Welcome back {{user.loggedin_user.name}}!</p>
+                    <textarea ng-model="user.data.splattbody" placeholder="How are you feeling? Write about it here" class="form-control">
+                    </textarea>
+                    <button type="submit" style="float:right" class="btn btn-success">HonkIt</button>
+			  </form>
+              <h2>Manage your followers</h2>
+              <div class="followers">
+                  <form ng-submit="user.followUser()" class="loggedin" style="display:none">
+                        <select ng-model="user.data.followid">
+                            <option value="{{u.id}}" ng-repeat="u in user.ulist">{{u.name}}</option> 
+                        </select>
+                        <button type="submit" class="btn btn-success">Follow</button>
+                    </form>
+                    
+                    <form ng-submit="user.unfollowUser()" class="loggedin" style="display:none">
+                        <select ng-model="user.data.unfollowid">
+                            <option value="{{u.id}}" ng-repeat="u in user.ulist">{{u.name}}</option> 
+                        </select>
+                        <button type="submit" class="btn btn-warning">Unfollow</button>
+                    </form>
+                </div>
 				</div>
 			</div>
 		</div>
-		<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse ultricies arcu euismod, finibus ligula non, ultricies neque. Aliquam malesuada id purus a venenatis. Mauris ornare vitae quam vitae ornare. Sed et nibh orci. Ut nisi velit, tempor sed volutpat nec, euismod sed ex. Fusce malesuada consequat accumsan. Maecenas nisi eros, cursus nec mi at, tincidunt iaculis est. Curabitur accumsan scelerisque maximus.</p>
-		<hr>
-
-		  <footer>
-			<p>Footer</p>
-		  </footer>
+			
+        <div class="container">
+        	<div class="notloggedin">
+                <h3 style="text-align:center">Login to view your personal feed</h3>
+                <h4 style="text-align:center">or signup for a free account below</h4>
+                <form ng-submit="user.createUser()" class="signup">
+                    <input placeholder="Full Name" type="text" ng-model="user.data.cname" /><br>
+                    <input placeholder="Email Address" type="email" ng-model="user.data.cemail" /><br>
+                    <input placeholder="Password" type="password" ng-model="user.data.cpassword" /><br>
+                    <input placeholder="Blurb" type="text" ng-model="user.data.cblurb" /><br><br>
+                    <button type="submit" class="btn btn-success">Sign Up</button>
+                </form>	
+            </div>
+            <div class="feed loggedin" style="display:none">
+            	<h3>Your Splattline</h3>
+				<div class="splatt" ng-repeat="splatt in user.myfeed">
+               		 <h2>{{splatt.name}} <span class="usr_cs">@{{splatt.id}}</span> <span class="splatt_timestamp">- {{splatt.created_at | date:'medium'}}</span></h2>
+					<p>{{splatt.body}}</p>
+				</div>
+                <h3>Your Splatts</h3>
+				<div class="splatt" ng-repeat="splatt in user.mysplatts">
+					<p>{{splatt.body}} <span class="splatt_timestamp">- {{splatt.created_at | date:'medium'}}</span></p>
+				</div>
+            </div>
+            
+            <div class="feed notloggedin" ng-controller="GetAllSplatts as AllSplatts">
+                <div class="splatt" ng-repeat="splatt in AllSplatts.feed">
+                        <h2>{{splatt.usr_name}} <span class="usr_cs">@{{splatt.usr_id}}</span> <span class="splatt_timestamp">- {{splatt.created_at | date:'medium'}}</span></h2>
+                        <p>{{splatt.body}}</p>
+                </div>
+            </div>
+		</div>
+        
 	</body>
 </html>
 
